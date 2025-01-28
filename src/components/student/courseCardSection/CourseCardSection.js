@@ -2,24 +2,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CourseCard from "../courseCard/CourseCard";
 import { dummyCourses } from "../../../assets/assets";
-import { useSelector } from "react-redux";
+import { motion } from "motion/react";
 
 function CourseCardSection() {
   // const courses = useSelector((store) => store.course.course);
   return (
     <div className="py-10 text-center max-md:py-5">
-      <h2 className="text-3xl font-medium text-gray-800">
-        Learn from the best
-      </h2>
-      <p
-        className="text-gray-500 my-4 text-sm px-4  max-md:text-xs"
-        data-aos="fade-down"
+      <motion.h2
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1,
+          scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+        }}
+        className="text-3xl font-medium text-gray-800"
       >
+        Learn from the best
+      </motion.h2>
+      <motion.p className=" max-w-2xl  text-gray-500 mx-auto  my-4 max-sm:hidden">
         Discover our top-rated courses across various categories. From coding
         and design to business and wellness,
         <br />
         our courses are crafted to deliver results.
-      </p>
+      </motion.p>
 
       {/*  flex gap-4  justify-between items-center w-[90%] m-auto  max-lg:flex-col max-lg:w-1/2 max-md:w-[80%] max-lg:m-auto max-lg:gap-6 */}
       <div className=" grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4  px-8 my-16 max-lg:my-8 max-lg:px-4  ">

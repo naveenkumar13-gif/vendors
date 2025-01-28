@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets } from "../../../assets/assets";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { motion } from "motion/react";
 function NavBar() {
   const isCourseListPage = useLocation().pathname.includes("course-list");
+  const [isEductor, setIsEductor] = useState(false);
   return (
     <>
       <ul
@@ -10,12 +12,25 @@ function NavBar() {
           isCourseListPage ? "bg-white " : "bg-cyan-100/70"
         } text-white`}
       >
-        <li>
-          <img src={assets.logo} alt="logo" className="w-28 cursor-pointer" />
-        </li>
+        <Link to={"/"} className="flex items-center gap-4">
+          <motion.img
+            initial={{ rotate: 180 }}
+            animate={{ rotate: 0 }}
+            transition={{ duration: 1 }}
+            src={assets.logo}
+            alt="logo"
+            className="w-28 cursor-pointer"
+          />
+        </Link>
         <li className="flex gap-4  justify-between items-center text-black max-sm:hidden">
           <div className="flex gap-4 items-center">
-            <button className="outline-none">Become Educator</button>|
+            <button
+              className="outline-none cursor-pointer"
+              onClick={() => Navigate("/educator")}
+            >
+              {isEductor ? "Educator dashboard" : "Become Educator"}
+            </button>
+            |
             <Link
               to={"/my-enrollments"}
               className="hover:text-blue-600 duration-300"

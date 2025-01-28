@@ -1,15 +1,29 @@
 import React from "react";
 import { assets } from "../../../assets/assets";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 function CourseCard({ course }) {
+  const calculateRating = (course) => {
+    if (course.courseRatings.length === 0) {
+      return 0;
+    }
+    let totalRating = 0;
+    course.courseRatings.forEach((rating) => {
+      totalRating += rating.rating;
+    });
+    return (totalRating / course.courseRatings.length).toFixed(1);
+  };
   return (
     <Link
       to={"/course-list" + course._id}
       onClick={() => window.scrollTo(0, 0)}
       className=" shadow-md rounded-md  border overflow-hidden   border-gray-100"
     >
-      <div className=" ">
+      <motion.div
+        whileHover={{ y: -10 }}
+        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      >
         <div className="">
           <img
             src={course.courseThumbnail}
@@ -22,17 +36,19 @@ function CourseCard({ course }) {
           <p className="text-gray-400">{course.educator}</p>
         </div>
         <div className="flex  space-x-2 items-center px-4">
-          <p>5</p>
+          <p>{calculateRating(course)}</p>
           <div className="flex justify-center items-center gap-1  ">
             {[...Array(5)].map((_, i) => (
               <img
                 key={i}
-                src={assets.star}
+                src={
+                  i < calculateRating(course) ? assets.star : assets.star_blank
+                }
                 alt="star"
                 className="w-3.5 h-3.5"
               />
             ))}
-            <p className="text-gray-400">{22}</p>
+            <p className="text-gray-400">{course.courseRatings.length}</p>
           </div>
         </div>
         <div className=" text-base max-lg:text-lg  max-md:text-sm  text-left px-4 py-2  ">
@@ -44,7 +60,7 @@ function CourseCard({ course }) {
             ).toFixed(2)}
           </p>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 }
