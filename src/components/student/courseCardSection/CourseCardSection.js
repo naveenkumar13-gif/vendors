@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import CourseCard from "../courseCard/CourseCard";
 import { dummyCourses } from "../../../assets/assets";
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 
 function CourseCardSection() {
-  // const courses = useSelector((store) => store.course.course);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
+
   return (
     <div className="py-10 text-center max-md:py-5">
       <motion.h2
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
+        ref={ref}
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: isInView ? 1 : 0 }}
         transition={{
           duration: 1,
           scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
         }}
-        className="text-3xl font-medium text-gray-800"
+        className="text-4xl font-medium text-gray-800"
       >
         Learn from the best
       </motion.h2>
@@ -28,6 +31,7 @@ function CourseCardSection() {
 
       {/*  flex gap-4  justify-between items-center w-[90%] m-auto  max-lg:flex-col max-lg:w-1/2 max-md:w-[80%] max-lg:m-auto max-lg:gap-6 */}
       <div className=" grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4  px-8 my-16 max-lg:my-8 max-lg:px-4  ">
+      
         {dummyCourses.slice(0, 4).map((course) => (
           <CourseCard course={course} key={course._id} />
         ))}

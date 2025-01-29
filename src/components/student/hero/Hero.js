@@ -11,7 +11,7 @@ function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1,
-            scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+            scale: { type: "spring", visualDuration: 0.4, bounce: 0.75 },
           }}
           className="text-4xl font-bold max-w-3xl m-auto max-sm:text-2xl tracking-wide  max-sm:max-w-full relative "
         >

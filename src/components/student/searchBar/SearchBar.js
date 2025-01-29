@@ -8,6 +8,7 @@ function SearchBar({ data }) {
   const onSearch = (e) => {
     e.preventDefault();
     navigate("/course-list/" + input);
+    setInput("");
   };
   return (
     <div>

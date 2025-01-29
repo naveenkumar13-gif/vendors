@@ -3,7 +3,7 @@ import { assets } from "../../../assets/assets";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { motion } from "motion/react";
 function NavBar() {
-  const isCourseListPage = useLocation().pathname.includes("course-list");
+  const isCourseListPage = useLocation().pathname.includes("/course-list/");
   const [isEductor, setIsEductor] = useState(false);
   return (
     <>
@@ -12,7 +12,7 @@ function NavBar() {
           isCourseListPage ? "bg-white " : "bg-cyan-100/70"
         } text-white`}
       >
-        <Link to={"/"} className="flex items-center gap-4">
+        <Link to={"/"} className="flex items-center gap-4 outline-none">
           <motion.img
             initial={{ rotate: 180 }}
             animate={{ rotate: 0 }}
@@ -38,9 +38,14 @@ function NavBar() {
               My-Enrollments
             </Link>
           </div>
-          <button className="bg-blue-700 px-4 py-2 cursor-pointer rounded-full text-white  hover:bg-blue-800 duration-300 ">
+          <motion.button
+            initial={{ transform: "translateX(200px)" }}
+            animate={{ transform: "translateX(0px)" }}
+            transition={{ type: "spring" }}
+            className="bg-blue-700 px-4 py-2 cursor-pointer rounded-full text-white  hover:bg-blue-800 duration-300 "
+          >
             create Account
-          </button>
+          </motion.button>
         </li>
         <li className="hidden max-sm:block">
           <div className="flex gap-4 items-center  text-black">

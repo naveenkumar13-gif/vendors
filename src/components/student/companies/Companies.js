@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { assets } from "../../../assets/assets";
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 
 function Companies() {
+ 
   return (
-    <div className="py-10 text-center ">
-      <p className="text-gray-500 tetx-base">Trusted by learners from</p>
+    <div className="py-10 text-center  max-sm:py-5">
+      <h1 className="text-gray-500 tetx-base text-4xl">
+        Trusted by learners from
+      </h1>
       <div className="flex flex-wrap justify-center gap-6 items-center mt-5">
         <motion.img
           whileHover={{

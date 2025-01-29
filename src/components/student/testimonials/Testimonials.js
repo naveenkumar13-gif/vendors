@@ -7,10 +7,10 @@ function Testimonials() {
     <div>
       <div className="py-14 px-8 flex flex-col justify-center items-center max-sm:py-10 ">
         <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-3xl font-medium text-gray-800"
+          className="text-4xl font-medium text-gray-800"
         >
           Testimonials
         </motion.h2>
@@ -59,6 +59,9 @@ function Testimonials() {
                 <p className="text-gray-500 mt-5 max-lg:text-sm max-md:text-base">
                   {item.feedback}
                 </p>
+                <a href="#" className="text-blue-500/60 max-lg:text-sm">
+                  Read more
+                </a>
               </div>
             </div>
           </motion.div>

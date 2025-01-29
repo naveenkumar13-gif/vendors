@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { useParams } from "react-router-dom";
 
-function index() {
+function CourseDetails() {
+  const { id } = useParams();
   return (
-    <div>index</div>
-  )
+    <div>
+      <h1
+        className="
+      text-4xl"
+      >
+        Course Details
+      </h1>
+      <p>{id}</p>
+    </div>
+  );
 }
 
-export default index
+export default CourseDetails;
