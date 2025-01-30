@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 
-const Loader = () => {
+const Loading = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-lg z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-r from-purple-400/30 to-blue-400/30  z-50 ">
       <motion.div
         className="flex space-x-2"
         initial={{ opacity: 0 }}
@@ -49,4 +49,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Loading;
