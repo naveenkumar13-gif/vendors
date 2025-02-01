@@ -11,13 +11,16 @@ import {
   calculateNoOfLectures,
 } from "../../../Store/coursesList";
 import humanizeDuration from "humanize-duration";
+import YouTube from "react-youtube";
 function CourseDetails() {
   const { id } = useParams();
   // const courseDetails = dummyCourses.find((course) => course._id === id);
   const [couresData, setCourseData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState({});
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [palyData, setPlayData] = useState(null);
+  const [open, setOpen] = useState({});
+
   const fetchCourseDetails = async () => {
     const courseDetails = dummyCourses.find((course) => course._id === id);
     setCourseData(courseDetails);
@@ -69,7 +72,7 @@ function CourseDetails() {
   };
   return couresData ? (
     <>
-      <div className=" flex gap-8 px-8 pt-20 text-left relative z-10">
+      <div className=" flex gap-8 px-8 pt-20 text-left relative z-10 max-md:px-2 max-md:flex-col max-lg:pt-15 max-md:pt-10 max-md:gap-6 max-sm:gap-4">
         <div className=" top-0 left-0 w-full bg-gradient-to-b -z-10 from-cyan-100/70 h-screen absolute"></div>
 
         <div className="max-w-3xl z-20 text-gray-900 ">
@@ -77,7 +80,7 @@ function CourseDetails() {
             initial="hidden"
             animate="visible"
             variants={headindVariants}
-            className="text-gray-800 font-semibold text-5xl"
+            className="text-gray-800 font-semibold text-5xl max-md:text-4xl"
           >
             {couresData.courseTitle}
           </motion.h1>
@@ -90,7 +93,7 @@ function CourseDetails() {
               __html: couresData.courseDescription.slice(0, 200),
             }}
           ></motion.p>
-          <div className="flex  space-x-2 items-center px-4 pt-3 pb-1">
+          <div className="flex  space-x-2 items-center px-4 pt-3 pb-1 max-sm:px-2 ">
             <p>{calculateRating(couresData)}</p>
             <div className="flex justify-center items-center gap-1  ">
               {[...Array(5)].map((_, i) => (
@@ -133,13 +136,13 @@ function CourseDetails() {
               {couresData.courseContent.map((chapter, index) => (
                 <div
                   key={index}
-                  className="border border-gray-300 p-4 my-2 bg-white w-full"
+                  className="border border-gray-300 p-4 my-2 bg-white w-full max-md:p-2"
                 >
                   <div
-                    className="flex justify-between items-center px-4 py-3 cursor-pointer select-none"
+                    className="flex justify-between items-center px-4 py-3 cursor-pointer select-none max-md:px-2 max-md:py-1  max-md:gap-2"
                     onClick={() => toggleSection(index)}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2  max-sm:gap-1">
                       <img
                         src={assets.down_arrow_icon}
                         alt=""
@@ -147,7 +150,7 @@ function CourseDetails() {
                           open[index] ? "rotate-180" : ""
                         }`}
                       />
-                      <p className="font-medium text-base">
+                      <p className="font-medium text-base  max-sm:text-xs">
                         {chapter.chapterTitle}
                       </p>
                     </div>
@@ -163,26 +166,37 @@ function CourseDetails() {
                   >
                     <ul
                       className="list-disc px-4 py-3
-                     text-gray-600 border-t border-gray-300"
+                     text-gray-600 border-t border-gray-300 max-md:px-2 max-md:py-1"
                     >
                       {chapter.chapterContent.map((lecture, i) => (
-                        <li className="flex items-start gap-2 py-2" key={i}>
+                        <li className="flex items-start gap-2 py-2 " key={i}>
                           <img
                             src={assets.play_icon}
                             alt=""
-                            className="w-4 h-4 mt-1"
+                            className="w-4 h-4 mt-1 "
                           />
-                          <div className="flex items-center  justify-between w-full text-gray-800 text-sm  ">
-                            <p>{lecture.lectureTitle}</p>
+                          <div className="flex items-center  justify-between w-full text-gray-800  max-sm:gap-0 ">
+                            <p className="text-sm max-sm:text-[11px]">
+                              {lecture.lectureTitle}
+                            </p>
                             <div className=" flex items-center gap-2">
-                              <p className=" text-md">
+                              <p className=" text-md max-sm:text-[12px]">
                                 {lecture.isPreviewFree && (
-                                  <span className="text-blue-500 cursor-pointer ">
+                                  <span
+                                    className="text-blue-500 cursor-pointer "
+                                    onClick={() =>
+                                      setPlayData({
+                                        videoId: lecture.lectureUrl
+                                          .split("/")
+                                          .pop(),
+                                      })
+                                    }
+                                  >
                                     Preview
                                   </span>
                                 )}
                               </p>
-                              <p className=" text-md">
+                              <p className=" text-md max-sm:text-[12px]">
                                 {humanizeDuration(
                                   lecture.lectureDuration * 60 * 1000,
                                   { units: ["h", "m"] }
@@ -197,13 +211,13 @@ function CourseDetails() {
                 </div>
               ))}
             </div>
-            <div className="text-xl py-20">
+            <div className="text-xl py-20 max-lg:py-15 max-md:py-10 max-sm:py-2">
               <h3 className="text-xl text-gray-800">Course Description</h3>
               <motion.p
                 initial="hidden"
                 animate="visible"
                 variants={paragraphVariants}
-                className="text-base  my-4 text-gray-500 "
+                className="text-base  my-4 text-gray-500 max-md:leading-relaxed "
                 dangerouslySetInnerHTML={{
                   __html: couresData.courseDescription,
                 }}
@@ -227,10 +241,19 @@ function CourseDetails() {
             delay: 0.5,
             duration: 2,
           }}
-          className="max-w-full shadow-2xl bg-white min-w-[300px] overflow-hidden z-10 max-h-fit"
+          className="max-w-full shadow-2xl bg-white min-w-[300px] overflow-hidden z-10 max-h-fit max-sm:my-5"
         >
-          <img src={couresData.courseThumbnail} alt="" />
-          <div className="p-5">
+          {palyData ? (
+            <YouTube
+              videoId={palyData.videoId}
+              opts={{ playerVars: { autoplay: 1 } }}
+              iframeClassName="w-full aspect-vedio"
+            ></YouTube>
+          ) : (
+            <img src={couresData.courseThumbnail} alt="" />
+          )}
+
+          <div className="p-5 max-md:p-2.5">
             <div className="flex items-center gap-2">
               <img
                 src={assets.time_clock_icon}
@@ -252,7 +275,8 @@ function CourseDetails() {
                 }}
                 className="text-red-500"
               >
-                <span className="font-medium">5 days</span> left at this price
+                <span className="font-medium max-md:text-sm">5 days</span> left
+                at this price
               </motion.p>
             </div>
             <div className="flex gap-3 items-center pt-2">
@@ -263,14 +287,14 @@ function CourseDetails() {
                   (couresData.discount * couresData.coursePrice) / 100
                 ).toFixed(2)}
               </p>
-              <p className="text-xl line-through text-gray-700">
+              <p className="text-xl line-through text-gray-700 max-lg:text-lg">
                 ${couresData.coursePrice}
               </p>
-              <p className="text-xl text-gray-500">
+              <p className="text-xl text-gray-500 max-lg:text-lg">
                 {couresData.discount}% off
               </p>
             </div>
-            <div className="flex items-center gap-4 text-gray-400 pt-2">
+            <div className="flex items-center gap-4 text-gray-400 pt-2 max-lg:gap-2">
               <motion.div
                 initial={{
                   x: -50,
@@ -287,7 +311,7 @@ function CourseDetails() {
                 className="flex items-center gap-1"
               >
                 <img src={assets.star} alt="" />
-                <p>{calculateRating(couresData)}</p>
+                <p className="max-lg:text-sm">{calculateRating(couresData)}</p>
               </motion.div>
               <div className="h-4 bg-gray-500/40 w-0.5"></div>
               <motion.div
@@ -303,10 +327,12 @@ function CourseDetails() {
                   delay: 1.5,
                   duration: 1.5,
                 }}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 "
               >
                 <img src={assets.time_clock_icon} alt="" />
-                <p>{calculateCourseDuration(couresData)}</p>
+                <p className="max-lg:text-sm">
+                  {calculateCourseDuration(couresData)}
+                </p>
               </motion.div>
               <div className="h-4 bg-gray-500/40 w-0.5"></div>
               <motion.div
@@ -325,7 +351,9 @@ function CourseDetails() {
                 className="flex items-center gap-1"
               >
                 <img src={assets.lesson_icon} alt="" />
-                <p>{calculateNoOfLectures(couresData)}lesons</p>
+                <p className="max-lg:text-sm">
+                  {calculateNoOfLectures(couresData)}lesons
+                </p>
               </motion.div>
             </div>
             <button className="w-full py-3 rounded bg-blue-600 mt-6 text-white">

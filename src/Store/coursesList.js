@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dummyCourses } from "../assets/assets";
-import { time } from "motion";
 import humanizeDuration from "humanize-duration";
 
+
+
 const initialState = {
-  course: dummyCourses,
+  email: "",
 };
-const course = createSlice({
-  name: "course",
+
+const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
-    setCourses: (state, action) => {
-      state.courses = action.payload;
+    setEmail: (state, action) => {
+      state.email = action.payload;
+    },
+    clearEmail: (state) => {
+      state.email = "";
     },
   },
 });
-
 export const calculateRating = (course) => {
   if (course.courseRatings.length === 0) {
     return 0;
@@ -53,4 +56,7 @@ export const calculateNoOfLectures = (course) => {
   return lectures;
 };
 
-export default course.reducer;
+
+export const { setEmail, clearEmail } = userSlice.actions;
+export default userSlice.reducer;
+
