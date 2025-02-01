@@ -16,10 +16,11 @@ import StudentsEnrolled from "./pages/educator/studentsEnorolled/index";
 import NavBar from "./components/student/nav/NavBar";
 import Loader from "./components/student/loading/Loading";
 import Login from "./components/student/login/Login";
+import { useSelector } from "react-redux";
 function App() {
   const isEductor = useMatch("/educator/*");
   const [loading, setLoading] = useState(true);
-  const [login, setLogin] = useState();
+  const user = useSelector((store) => store.user.email);
 
   useEffect(() => {
     AOS.init();
@@ -38,10 +39,12 @@ function App() {
   return (
     <>
       <div className="text-default bg-white min-h-screen">
-        {!isEductor && <NavBar />}
-        <Routes>
-          {
-            <>
+        {!user ? (
+          <Login />
+        ) : (
+          <>
+            {!isEductor && <NavBar />}
+            <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/course-list" element={<CourseList />} />
@@ -56,9 +59,9 @@ function App() {
                 <Route path="my-courses" element={<MyCourses />} />
                 <Route path="student-enrolled" element={<StudentsEnrolled />} />
               </Route>
-            </>
-          }
-        </Routes>
+            </Routes>
+          </>
+        )}
       </div>
     </>
   );

@@ -27,19 +27,36 @@ function NavBar() {
         </Link>
         <li className="flex gap-4  justify-between items-center text-black max-sm:hidden">
           {user ? (
-            <div className="flex items-center gap-4 max-sm:gap-0 max-sm:text-xs">
-              <img src={assets.user_icon} alt="user_loago" />
-              <h2 className="">{user}</h2>
-            </div>
-          ) : (
             <>
-              <div className="flex gap-4 items-center">
-                <button
+              <div className="">
+                {/* <button
                   className="outline-none cursor-pointer"
                   onClick={() => Navigate("/educator")}
                 >
                   {isEductor ? "Educator dashboard" : "Become Educator"}
-                </button>
+                </button> */}
+
+                <Link
+                  to={"/my-enrollments"}
+                  className="hover:text-blue-600 duration-300"
+                >
+                  My-Enrollments
+                </Link>
+              </div>
+              <div className="flex items-center gap-1 max-sm:gap-0 max-sm:text-xs cursor-pointer">
+                <img src={assets.user_icon} alt="user_loago" />
+                <h2 className="">{user}</h2>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex gap-4 items-center">
+                {/* <button
+                  className="outline-none cursor-pointer"
+                  onClick={() => Navigate("/educator")}
+                >
+                  {isEductor ? "Educator dashboard" : "Become Educator"}
+                </button> */}
                 |
                 <Link
                   to={"/my-enrollments"}
