@@ -31,11 +31,10 @@ function PLayer() {
       <div className="flex flex-col gap-10">
         {/* left */}
         <div className="text-gray-800   bg-gray-300 h-screen flex items-center justify-center">
-          <h2 className="text-3xl font-semibold">
+          <h2 className="text-3xl font-semibold max-sm:text-xl max-sm:text-center">
             Course Structures...
             <br />
             <p className="text-blue-400 text-center"> soon</p>
-            <p>{id}</p>
           </h2>
           <div className="pt-5">
             {couresData &&

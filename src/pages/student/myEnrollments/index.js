@@ -63,9 +63,9 @@ function MyEnrollment() {
   }, []);
   return (
     <>
-      <div className="px-8 py-10">
+      <div className="px-8 py-10 max-md:px-4 max-sm:px-2 max-md:py-5 max-sm:py-2.5">
         <h1 className="text-2xl font-bold">My Enrollments</h1>
-        <table className="w-full table-fixed overflow-hidden border mt-10">
+        <table className="w-full table-fixed overflow-hidden border mt-10 max-md:mt-5 max-sm:mt2.5">
           <thead className="text-gray-900 border border-gray-500/20 text-sm text-left max-sm:hidden">
             <tr className=" my-2 ">
               <th className="px-4 pt-3 font-semibold ">Couurse</th>
@@ -76,7 +76,7 @@ function MyEnrollment() {
           </thead>
           <tbody className="text-gray-700">
             {enrollmentsCourses.map((course, index) => (
-              <tr key={index} className="border-b  border-gray-500/20 ">
+              <tr key={index} className="border-b  border-gray-500/20  ">
                 <td className="flex items-center space-x-3 p-2 px-4 ">
                   <img
                     src={course.courseThumbnail}
@@ -84,7 +84,7 @@ function MyEnrollment() {
                     className="w-28 "
                   />
                   <div className="flex-auto">
-                    <p className="mb-1 max-sm:text-sm"> {course.courseTitle}</p>
+                    <p className="mb-1 max-sm:text-xs"> {course.courseTitle}</p>
                     <Line
                       strokeWidth={2}
                       percent={
@@ -107,7 +107,7 @@ function MyEnrollment() {
                 </td>
                 <td className="px-4 py-3 max-sm:text-right">
                   <button
-                    className="bg-blue-700 px-4 py-2 cursor-pointer rounded text-white  hover:bg-blue-800 duration-300 "
+                    className="bg-blue-700 px-4 py-2 max-sm:px-1.5 max-sm:py-1 max-sm:text-xs cursor-pointer rounded text-white  hover:bg-blue-800 duration-300 "
                     onClick={() => navigate("/player/" + course._id)}
                   >
                     {progress[index] &&

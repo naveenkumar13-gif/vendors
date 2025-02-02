@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 function Hero() {
   return (
     <div>
-      <div className="w-full text-center  gap-4 flex flex-col justify-center items-center pt-20 px-7 space-y-7 bg-gradient-to-b from-cyan-100/70 ">
+      <div className="w-full text-center  gap-4 flex flex-col justify-center items-center pt-20 px-7 max-md:pt-10 max-sm:pt-5 space-y-7 bg-gradient-to-b from-cyan-100/70 ">
         <motion.h1
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
