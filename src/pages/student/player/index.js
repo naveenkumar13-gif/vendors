@@ -3,6 +3,7 @@ import { assets } from "../../../assets/assets";
 import { useParams } from "react-router-dom";
 import { calculateChapterTime } from "../../../Store/coursesList";
 import humanizeDuration from "humanize-duration";
+import Footer from "../../../components/student/footer/Footer";
 
 function PLayer() {
   const { id } = useParams();
@@ -24,22 +25,18 @@ function PLayer() {
 
   useEffect(() => {
     getCourseData();
-  }, []);
+  }, [enrollmentsCourses]);
   return (
     <>
       <div className="flex flex-col gap-10">
         {/* left */}
-        <div className="text-gray-800 flex justify-center items-center h-screen w-full bg-gray-300">
+        <div className="text-gray-800   bg-gray-300 h-screen flex items-center justify-center">
           <h2 className="text-3xl font-semibold">
             Course Structures...
             <br />
             <p className="text-blue-400 text-center"> soon</p>
+            <p>{id}</p>
           </h2>
-          <p>{id}</p>
-        </div>
-        {/* right */}
-
-        <div>
           <div className="pt-5">
             {couresData &&
               couresData.courseContent.map((chapter, index) => (
@@ -123,7 +120,11 @@ function PLayer() {
               ))}
           </div>
         </div>
+        {/* right */}
+
+        <div></div>
       </div>
+      <Footer />
     </>
   );
 }
